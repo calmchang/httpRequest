@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta id="viewport" name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1, maximum-scale=1,user-scalable=no">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="icon" href="./favicon.png" type="image/png">
+    
+
+    <link rel="stylesheet" href="printjson.css">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="guide.css">
+    <link rel="stylesheet" href="index.css">
+
+
+    <script src="printjson.js"></script>
+    <script src="qs.js"></script>
+    <script src="guide.js"></script>
+    <script src="index.js"></script>
+
+    <style>
+      .opacity{opacity: 0;pointer-events: none;}
+    </style>
+</head>
+
+<body>
+
+  
+  <section class="info">
+    <hgroup>
+      <p>Request</p>
+      <pre id="request">
+      </pre>
+    </hgroup>
+    <hgroup>
+      <p>Response</p>
+      <pre id="response">
+      </pre>
+    </hgroup>
+  </section>
+  <hgroup>
+    <p>URL</p>
+    <p id="url"></p>
+  </hgroup>
+  <button id="btnRun">发送Post请求,Content-Type:text/plain</button>
+  <script>
+
+    function run(){
+      let URL = `${window.HOST_API}/post`;
+      document.querySelector('#url').innerHTML = URL;
+
+      var xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        let response= prettyPrintJson.toHtml(JSON.parse(xhr.response));
+        document.querySelector('#response').innerHTML =response;
+      }
+      xhr.open('POST', URL)
+      // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      let params={
+        name:'tom',
+        arr:['a','b','1']
+      };
+      let brackets = Qs.stringify(params,{arrayFormat:'brackets'});
+      let indices = Qs.stringify(params,{arrayFormat:'indices'});
+      let repeat = Qs.stringify(params,{arrayFormat:'repeat'});
+      let normal = Qs.stringify(params);
+      document.querySelector('#request').innerHTML =normal;
+      xhr.send(normal);
+    }
+
+    window.addEventListener('load',()=>{
+      document.querySelector('#btnRun').addEventListener('click',run);
+    })
+
+    
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+window.HOST_API ='https://m.vuedata.cn/ndapp/httpTest';
