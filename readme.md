@@ -1,4 +1,4 @@
-
+![Page Views Count](https://badges.toozhao.com/badges/01GM1ZMWPC8NE2ZN9VB3GH05JZ/green.svg)
 
 # 常见ajax请求
 
